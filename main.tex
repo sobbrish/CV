@@ -1,0 +1,350 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot, % set margins without considering header and footer
+    top=2 cm, % seperation between body and page edge from the top
+    bottom=2 cm, % seperation between body and page edge from the bottom
+    left=2 cm, % seperation between body and page edge from the left
+    right=2 cm, % seperation between body and page edge from the right
+    footskip=1.0 cm, % seperation between body and footer
+    % showframe % for debugging 
+]{geometry} % for adjusting page geometry
+\usepackage{titlesec} % for customizing section titles
+\usepackage{tabularx} % for making tables with fixed width columns
+\usepackage{array} % tabularx requires this
+\usepackage[dvipsnames]{xcolor} % for coloring text
+\definecolor{primaryColor}{RGB}{0, 79, 144} % define primary color
+\usepackage{enumitem} % for customizing lists
+\usepackage{fontawesome5} % for using icons
+\usepackage{amsmath} % for math
+\usepackage[
+    pdftitle={Sophia Zhang's CV},
+    pdfauthor={Sophia Zhang},
+    pdfcreator={LaTeX with RenderCV},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref} % for links, metadata and bookmarks
+\usepackage[pscoord]{eso-pic} % for floating text on the page
+\usepackage{calc} % for calculating lengths
+\usepackage{bookmark} % for bookmarks
+\usepackage{lastpage} % for getting the total number of pages
+\usepackage{changepage} % for one column entries (adjustwidth environment)
+\usepackage{paracol} % for two and three column entries
+\usepackage{ifthen} % for conditional statements
+\usepackage{needspace} % for avoiding page brake right after the section title
+\usepackage{iftex} % check if engine is pdflatex, xetex or luatex
+\usepackage{tcolorbox}
+\usepackage{multicol}
+\usepackage{tikz}
+% Ensure that generate pdf is machine readable/ATS parsable:
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    % \usepackage[T1]{fontenc} % this breaks sb2nov
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+% Circle commands:
+\newcommand{\filledcircle}{\tikz \fill (0,0) circle (5pt);} % Filled circle
+\newcommand{\opencircle}{\tikz \draw (0,0) circle (5pt);}  % Open circle
+
+% Page styling:
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\columnsep}{0cm}
+
+% Section styling:
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+
+\titlespacing{\section}{-1pt}{0.3cm}{0.2cm}
+
+\tcbset{
+    skillbox/.style={
+        colback=white, % Background color
+        colframe=gray, % Border color
+        fonttitle=\bfseries, % Title font style
+        boxrule=0.2mm, % Border thickness
+        arc=1mm, % Rounded corners
+        width=0.2\textwidth, % Box width
+        height=0.7cm, % Fixed height for all boxes
+        left=1mm, % Left padding
+        right=1mm, % Right padding
+        top=1mm, % Top padding
+        bottom=1mm, % Bottom padding
+        boxsep=1mm % Space between boxes
+    }
+}
+
+
+% Some settings:
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt} % remove space before adjustwidth environment
+\pagestyle{empty} % no header or footer
+\setcounter{secnumdepth}{0} % no section numbering
+\setlength{\parindent}{0pt} % no indentation
+\setlength{\topskip}{0pt} % no top skip
+\setlength{\columnsep}{0cm} % set column seperation
+\makeatletter
+\let\ps@customFooterStyle\ps@plain % Copy the plain style to customFooterStyle
+
+\makeatother
+
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large\color{VividPurple}}{}{0pt}{}[\vspace{1pt}\titlerule]
+
+\titlespacing{\section}{
+    % left space:
+    -1pt
+}{
+    % top space:
+    0.3 cm
+}{
+    % bottom space:
+    0.2 cm
+} % section title spacing
+
+\renewcommand\labelitemi{$\circ$} % custom bullet points
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0.4 cm + 10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights for bullet entries
+
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{
+        0.2 cm + 0.00001 cm
+    }{
+        0.2 cm + 0.00001 cm
+    }
+}{
+    \end{adjustwidth}
+} % new environment for one column entries
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 11 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for two column entries
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+} % new environment for the header
+
+% save the original href command in a new command:
+\let\hrefWithoutArrow\href
+
+% new command for external links:
+\renewcommand{\href}[2]{\hrefWithoutArrow{#1}{\ifthenelse{\equal{#2}{}}{ }{#2 }\raisebox{.15ex}{\footnotesize \faExternalLink*}}}
+
+
+% Change the colours if you want to
+\definecolor{VividPurple}{HTML}{3E0097}
+
+
+
+\begin{document}
+    \newcommand{\AND}{\unskip
+        \cleaders\copy\ANDbox\hskip\wd\ANDbox
+        \ignorespaces
+    }
+    \newsavebox\ANDbox
+    \sbox\ANDbox{}
+
+    
+    \begin{header}
+        \textbf{\fontsize{24 pt}{24 pt}\selectfont Sophia Zhang}
+
+        \vspace{0.3 cm}
+
+        \normalsize
+        \mbox{{\color{VividPurple}\footnotesize\faMapMarker*}\hspace*{0.13cm}Auckland, New Zealand}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{mailto:xiaohan.zhang3@gmail.com}{\textcolor{VividPurple}{\faEnvelope[regular]}\hspace*{0.13cm}\textcolor{black}{xiaohan.zhang3@gmail.com}}}
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{tel:+64-022-358-46-58}{\textcolor{VividPurple}{\footnotesize\faPhone*}\hspace*{0.13cm}\textcolor{black}{0223584658}}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+
+        \mbox{\hrefWithoutArrow{https://www.linkedin.com/in/sophia-zhang-63bb6a294/}{\textcolor{VividPurple}{\footnotesize\faLinkedinIn}\hspace*{0.13cm}\textcolor{black}{Sophia Zhang}}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{https://github.com/sobbrish}{\textcolor{VividPurple}{\footnotesize\faGithub}\hspace*{0.13cm}\textcolor{black}{sobbrish}}}%
+    \end{header}
+
+    \vspace{0.3 cm - 0.3 cm}
+
+    \section{Personal Statement}
+
+        \begin{onecolentry}
+            
+            \item A passionate and driven student pursuing a Conjoint BCom/BSc in Finance and Computer Science at the University of Auckland. Experienced in web development, machine learning, and software engineering, with a strong focus on teamwork, problem-solving, and continuous learning.
+           
+        \end{onecolentry}
+        \vspace{0.4 cm}
+
+    \section{Education}
+    \vspace{0.5 cm}
+        
+        \begin{twocolentry}{
+            
+            
+        \textit{Feb 2022 – Ongoing}}
+            \textbf{University of Auckland}
+
+            
+        \end{twocolentry}
+        
+        \begin{onecolentry}
+            \textit{Conjoint: BCom/Bsc Finance;Computer Science}
+        \end{onecolentry}
+        \vspace{0.1 cm}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item \textbf{Coursework:} Machine Learning, Software Develpment Methodology, Human-computer Interactions
+            \end{highlights}
+        \end{onecolentry}
+        \vspace{0.4 cm}
+
+    
+    \section{Projects}
+    \vspace{0.5 cm}
+        
+        \begin{twocolentry}{
+            
+            
+        \textit{\href{https://github.com/sobbrish/FreeCycling-frontend-website}{https://github.com/sobbrish/FreeCycling-frontend-website}}}
+        
+            \textbf{Frontend Web Development}
+        \end{twocolentry}
+
+        \vspace{0.3 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Designed and developed a user-friendly frontend webpage for a freecycling platform, utilizing \#924E7D as the primary brand color to ensure cohesive and visually appealing design aesthetics.
+                \item Tools Used: HTML\&CSS, JavaScript
+            \end{highlights}
+        \end{onecolentry}
+
+
+        \vspace{0.4 cm}
+
+        \begin{twocolentry}{
+            
+            
+        \textit{\href{https://github.com/sobbrish/Moving-shapes}{https://github.com/sobbrish/Moving-shapes}}}
+            \textbf{Moving Shapes Visualizer}
+        \end{twocolentry}
+
+        \vspace{0.3 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Developed an interactive program that enables users to create and label shapes, as well as nest them, with dynamic movement across the screen based on user-defined parameters.
+                \item Tools Used: Java
+            \end{highlights}
+        \end{onecolentry}
+
+
+        \vspace{0.4 cm}
+
+        \begin{twocolentry}{
+            
+            
+            \textit{\href{https://github.com/sobbrish/Naive-Bayes-from-scratch}{https://github.com/sobbrish/Naive-Bayes-from-scratch}}}
+                \textbf{Naive Bayes Learning Model}
+            \end{twocolentry}
+    
+            \vspace{0.3 cm}
+            \begin{onecolentry}
+                \begin{highlights}
+                    \item Implemented a Naive Bayes classification model from scratch using Python, demonstrating a deep understanding of machine learning algorithms and data processing techniques.
+                    \item Tools Used: Python, Jupyter Notebook
+                \end{highlights}
+            \end{onecolentry}
+    
+    
+            \vspace{0.4 cm}
+
+
+
+    
+    \section{Technologies}
+    \vspace{0.5 cm}
+
+
+        
+        \begin{onecolentry}
+            \textbf{Languages:} C\#, HTML\&CSS, Java, Python, JavaScript
+        \end{onecolentry}
+
+        \vspace{0.2 cm}
+
+        \begin{onecolentry}
+            \textbf{Technologies:} .NET, SQLite, Jupyter Notebook, git
+        \end{onecolentry}
+        \vspace{0.4 cm}
+
+    \section{Soft Skills}
+    \vspace{0.5 cm}
+
+        \begin{onecolentry}
+            \noindent
+            \hbox{
+                \begin{tcolorbox}[skillbox, width=0.19\textwidth]
+                    Time Management
+                \end{tcolorbox}
+                \begin{tcolorbox}[skillbox, width=0.18\textwidth]
+                    Customer Service
+                \end{tcolorbox}
+                \begin{tcolorbox}[skillbox, width=0.12\textwidth]
+                    Teamwork
+                \end{tcolorbox}
+                \begin{tcolorbox}[skillbox, width=0.19\textwidth]
+                    Meeting Deadlines
+                \end{tcolorbox}
+                \begin{tcolorbox}[skillbox, width=0.22\textwidth]
+                    Remote Collaboration
+                \end{tcolorbox}
+                
+            }
+        \end{onecolentry}
+        \vspace{0.4 cm}
+    
+        
+
+
+\end{document}
